@@ -18,3 +18,5 @@ const getRandomFloatNumber = (min, max, numeralCount) => {
 
 getRandomInteger(1, 10);
 getRandomFloatNumber(1.54675747, 123.43534, 5);
+
+//test
