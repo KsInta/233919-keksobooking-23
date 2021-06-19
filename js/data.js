@@ -26,21 +26,6 @@ const ACCOMMODATION_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/j
 const GUESTS = ['гостя', 'гостей'];
 const ROOMS = ['комната', 'комнаты', 'комнат'];
 
-const getAccommodationType = (type) => {
-  switch (type) {
-    case 'flat':
-      return 'Квартира';
-    case 'bungalow':
-      return 'Бунгало';
-    case 'house':
-      return 'Дом';
-    case 'palace':
-      return 'Дворец';
-    case 'hotel':
-      return 'Отель';
-  }
-};
-
 const createAd = () => {
   const LAT_COORDS = getRandomFloatNumber(MIN_LATITUDE, MAX_LATITUDE, COORDS_ACCURACY);
   const LNG_COORDS = getRandomFloatNumber(MIN_LONGITUDE, MAX_LONGITUDE, COORDS_ACCURACY);
@@ -76,5 +61,5 @@ const createAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => create
 
 createAds;
 
-export {createAds, getAccommodationType, GUESTS, ROOMS};
+export {createAds, GUESTS, ROOMS};
 //Сейчас генерируем данные самостоятельно. В будущем будем получать их с сервера, поэтому необходимость в модуле util.js отпадет. Модуль data.js будет подключаться к map.js для отрисовки пинов на карте и информации о похожих объявлениях. Подключение этого модуля к точке входа уберем. Возможно и сам этот модуль надо будет убрать, так как объявления в виде объектов у нас уже есть на сервере. Нам надо будет только делать массив из 10 и выводить на карте

@@ -44,6 +44,21 @@ const getRussianGenitiveCase = (integer, russianWord) => {
   return remainder === 1 && integer !== 11 ? russianWord[0] : russianWord[1];
 };
 
-export {getRandomInteger, getRandomFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase};
+const getAccommodationType = (type) => {
+  switch (type) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'palace':
+      return 'Дворец';
+    case 'hotel':
+      return 'Отель';
+  }
+};
+
+export {getRandomInteger, getRandomFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase, getAccommodationType};
 
 //Этот модуль уберем когда настроим работу с сервером.
