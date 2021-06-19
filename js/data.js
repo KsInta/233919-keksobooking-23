@@ -23,6 +23,8 @@ const ACCOMMODATION_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elev
 const ACCOMMODATION_TIMES = ['12:00', '13:00', '14:00'];
 const ACCOMMODATION_DESCRIPTIONS = ['Находится в спальном районе с развитой инфраструктурой', 'Центр города, в 5 минутах ходьбы от ЦУМа', 'За городом, в шаговой доступности от остановки общественного транспорта, 15 минут езды до Северо-Западного района', 'Исторический центр города, рядом находится много достопримечательностей', 'Рядом речка и пляж, все что нужно для семейного отдыха'];
 const ACCOMMODATION_PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const GUESTS = ['гостя', 'гостей'];
+const ROOMS = ['комната', 'комнаты', 'комнат'];
 
 const createAd = () => {
   const LAT_COORDS = getRandomFloatNumber(MIN_LATITUDE, MAX_LATITUDE, COORDS_ACCURACY);
@@ -55,8 +57,9 @@ const createAd = () => {
   };
 };
 
-const similarAds = new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createAd());
+const createAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createAd());
 
-similarAds;
+createAds;
 
-//Сейчас генерируем данные самостоятельно. В будущем будем получать их с сервера, поэтому необходимость в модуле util.js отпадет. Модуль data.js будет подключаться к map.js для отрисовки пинов на карте и информации о похожих объявлениях. Подключение этого модуля к точке входа уберем. Возможно и сам этот модуль надо будет убрать, так как объявления в виде объектов у нас уже есть на сервере. Нам надо будет только делать массив из 10 и выводить на карте.
+export {createAds, GUESTS, ROOMS};
+//Сейчас генерируем данные самостоятельно. В будущем будем получать их с сервера, поэтому необходимость в модуле util.js отпадет. Модуль data.js будет подключаться к map.js для отрисовки пинов на карте и информации о похожих объявлениях. Подключение этого модуля к точке входа уберем. Возможно и сам этот модуль надо будет убрать, так как объявления в виде объектов у нас уже есть на сервере. Нам надо будет только делать массив из 10 и выводить на карте
