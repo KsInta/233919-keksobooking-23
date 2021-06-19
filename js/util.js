@@ -27,6 +27,23 @@ const getRandomArray = (parentArray) => {
 
 const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
-export {getRandomInteger, getRandomFloatNumber, getRandomArray, getRandomArrayElement};
+const getRussianCase = (integer, russianWord) => {
+  const remainder = integer % 10;
+  if (integer > 10 && integer < 20) {
+    return russianWord[2];
+  } else if (remainder > 1 && remainder < 5) {
+    return russianWord[1];
+  } else if (remainder === 1) {
+    return russianWord[0];
+  }
+  return russianWord[2];
+};
+
+const getRussianGenitiveCase = (integer, russianWord) => {
+  const remainder = integer % 10;
+  return remainder === 1 && integer !== 11 ? russianWord[0] : russianWord[1];
+};
+
+export {getRandomInteger, getRandomFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase};
 
 //Этот модуль уберем когда настроим работу с сервером.
