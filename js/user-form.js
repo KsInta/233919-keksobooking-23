@@ -5,13 +5,39 @@ const MAX_PRICE = 1000000;
 const MAX_ROOM_NUMBER = 100;
 
 const adForm = document.querySelector('.ad-form');
+const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
 const adTitle = adForm.querySelector('#title');
 const adPrice = adForm.querySelector('#price');
 const adRoomNumber = adForm.querySelector('#room_number');
 const adGuestNumber = adForm.querySelector('#capacity');
+const filterForm = document.querySelector('.map__filters');
 
-//Чтобы не запускать onSelectRoomChange когда страница загрузится. Также можно было это сделать в html.
-adGuestNumber.querySelector('option[value="1"]').setAttribute('selected', 'selected');
+//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственный потомков.
+const filterFormFields = Array.from(filterForm.children);
+
+const useInactivePageState = () => {
+  adForm.classList.add('ad-form--disabled');
+  filterForm.classList.add('map__filters--disabled');
+  adFormFields.forEach((item) => {
+    item.disabled = true;
+  });
+  filterFormFields.forEach((item) => {
+    item.disabled = true;
+  });
+};
+
+const useActivePageState = () => {
+  adForm.classList.remove('ad-form--disabled');
+  filterForm.classList.remove('map__filters--disabled');
+  adFormFields.forEach((item) => {
+    item.disabled = false;
+  });
+  filterFormFields.forEach((item) => {
+    item.disabled = false;
+  });
+};
+
+//Сейчас у меня в проекте есть отдельные модули для карты, формы заполнения объявления и формы фильтрации. Фунции активации и деактивации страницы используют переменные которые должны по идее быть вынесены в эти разные модули. Мне надо так сделать и импортировать их в этот модуль где я буду вызывать useInactivePageState и useActivePageState?
 
 const onSelectRoomChange = () => {
   const roomsValue = adRoomNumber.value;
@@ -53,5 +79,10 @@ adPrice.addEventListener('input', () => {
   adPrice.reportValidity();
 });
 
+adGuestNumber.querySelector('option[value="1"]').setAttribute('selected', 'selected');
+
 adRoomNumber.addEventListener('change', onSelectRoomChange);
 adGuestNumber.addEventListener('change', onSelectRoomChange);
+
+useInactivePageState();
+useActivePageState();
