@@ -8,11 +8,14 @@ const adForm = document.querySelector('.ad-form');
 const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
 const adTitle = adForm.querySelector('#title');
 const adPrice = adForm.querySelector('#price');
+const adAccommodationType = adForm.querySelector('#type');
+const adCkeckin = adForm.querySelector('#timein');
+const adCkeckout = adForm.querySelector('#timeout');
 const adRoomNumber = adForm.querySelector('#room_number');
 const adGuestNumber = adForm.querySelector('#capacity');
 const filterForm = document.querySelector('.map__filters');
 
-//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственный потомков.
+//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственных потомков.
 const filterFormFields = Array.from(filterForm.children);
 
 const useInactivePageState = () => {
@@ -38,6 +41,14 @@ const useActivePageState = () => {
 };
 
 //Сейчас у меня в проекте есть отдельные модули для карты, формы заполнения объявления и формы фильтрации. Фунции активации и деактивации страницы используют переменные которые должны по идее быть вынесены в эти разные модули. Мне надо так сделать и импортировать их в этот модуль где я буду вызывать useInactivePageState и useActivePageState?
+
+const getSameTimeIn = () => {
+  adCkeckin.value = adCkeckout.value;
+};
+
+const getSameTimeOut = () => {
+  adCkeckout.value = adCkeckin.value;
+};
 
 const onSelectRoomChange = () => {
   const roomsValue = adRoomNumber.value;
@@ -79,10 +90,38 @@ adPrice.addEventListener('input', () => {
   adPrice.reportValidity();
 });
 
+adAccommodationType.addEventListener('change', () => {
+  switch (adAccommodationType.value) {
+    case 'flat':
+      adPrice.setAttribute('min', 1000);
+      adPrice.setAttribute('placeholder', 1000);
+      break;
+    case 'bungalow':
+      adPrice.setAttribute('min', 0);
+      adPrice.setAttribute('placeholder', 0);
+      break;
+    case 'house':
+      adPrice.setAttribute('min', 5000);
+      adPrice.setAttribute('placeholder', 5000);
+      break;
+    case 'palace':
+      adPrice.setAttribute('min', 10000);
+      adPrice.setAttribute('placeholder', 10000);
+      break;
+    case 'hotel':
+      adPrice.setAttribute('min', 3000);
+      adPrice.setAttribute('placeholder', 3000);
+      break;
+  }
+});
+
 adGuestNumber.querySelector('option[value="1"]').setAttribute('selected', 'selected');
 
 adRoomNumber.addEventListener('change', onSelectRoomChange);
 adGuestNumber.addEventListener('change', onSelectRoomChange);
+
+adCkeckin.addEventListener('change', getSameTimeOut);
+adCkeckout.addEventListener('change', getSameTimeIn);
 
 useInactivePageState();
 useActivePageState();
