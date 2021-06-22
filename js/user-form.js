@@ -3,6 +3,11 @@ const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
 const MAX_ROOM_NUMBER = 100;
+const MIN_BUNGALOW_PRICE = 0;
+const MIN_FLAT_PRICE = 1000;
+const MIN_HOTEL_PRICE = 3000;
+const MIN_HOUSE_PRICE = 5000;
+const MIN_PALACE_PRICE = 10000;
 
 const adForm = document.querySelector('.ad-form');
 const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
@@ -93,24 +98,24 @@ adPrice.addEventListener('input', () => {
 adAccommodationType.addEventListener('change', () => {
   switch (adAccommodationType.value) {
     case 'flat':
-      adPrice.setAttribute('min', 1000);
-      adPrice.setAttribute('placeholder', 1000);
+      adPrice.setAttribute('min', MIN_FLAT_PRICE);
+      adPrice.setAttribute('placeholder', MIN_FLAT_PRICE);
       break;
     case 'bungalow':
-      adPrice.setAttribute('min', 0);
-      adPrice.setAttribute('placeholder', 0);
+      adPrice.setAttribute('min', MIN_BUNGALOW_PRICE);
+      adPrice.setAttribute('placeholder', MIN_BUNGALOW_PRICE);
       break;
     case 'house':
-      adPrice.setAttribute('min', 5000);
-      adPrice.setAttribute('placeholder', 5000);
+      adPrice.setAttribute('min', MIN_HOUSE_PRICE);
+      adPrice.setAttribute('placeholder', MIN_HOUSE_PRICE);
       break;
     case 'palace':
-      adPrice.setAttribute('min', 10000);
-      adPrice.setAttribute('placeholder', 10000);
+      adPrice.setAttribute('min', MIN_PALACE_PRICE);
+      adPrice.setAttribute('placeholder', MIN_PALACE_PRICE);
       break;
     case 'hotel':
-      adPrice.setAttribute('min', 3000);
-      adPrice.setAttribute('placeholder', 3000);
+      adPrice.setAttribute('min', MIN_HOTEL_PRICE);
+      adPrice.setAttribute('placeholder', MIN_HOTEL_PRICE);
       break;
   }
 });
