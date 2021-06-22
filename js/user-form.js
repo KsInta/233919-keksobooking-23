@@ -3,16 +3,24 @@ const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
 const MAX_ROOM_NUMBER = 100;
+const MIN_BUNGALOW_PRICE = 0;
+const MIN_FLAT_PRICE = 1000;
+const MIN_HOTEL_PRICE = 3000;
+const MIN_HOUSE_PRICE = 5000;
+const MIN_PALACE_PRICE = 10000;
 
 const adForm = document.querySelector('.ad-form');
 const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
 const adTitle = adForm.querySelector('#title');
 const adPrice = adForm.querySelector('#price');
+const adAccommodationType = adForm.querySelector('#type');
+const adCkeckin = adForm.querySelector('#timein');
+const adCkeckout = adForm.querySelector('#timeout');
 const adRoomNumber = adForm.querySelector('#room_number');
 const adGuestNumber = adForm.querySelector('#capacity');
 const filterForm = document.querySelector('.map__filters');
 
-//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственный потомков.
+//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственных потомков.
 const filterFormFields = Array.from(filterForm.children);
 
 const useInactivePageState = () => {
@@ -38,6 +46,14 @@ const useActivePageState = () => {
 };
 
 //Сейчас у меня в проекте есть отдельные модули для карты, формы заполнения объявления и формы фильтрации. Фунции активации и деактивации страницы используют переменные которые должны по идее быть вынесены в эти разные модули. Мне надо так сделать и импортировать их в этот модуль где я буду вызывать useInactivePageState и useActivePageState?
+
+const getSameTimeIn = () => {
+  adCkeckin.value = adCkeckout.value;
+};
+
+const getSameTimeOut = () => {
+  adCkeckout.value = adCkeckin.value;
+};
 
 const onSelectRoomChange = () => {
   const roomsValue = adRoomNumber.value;
@@ -79,10 +95,38 @@ adPrice.addEventListener('input', () => {
   adPrice.reportValidity();
 });
 
+adAccommodationType.addEventListener('change', () => {
+  switch (adAccommodationType.value) {
+    case 'flat':
+      adPrice.setAttribute('min', MIN_FLAT_PRICE);
+      adPrice.setAttribute('placeholder', MIN_FLAT_PRICE);
+      break;
+    case 'bungalow':
+      adPrice.setAttribute('min', MIN_BUNGALOW_PRICE);
+      adPrice.setAttribute('placeholder', MIN_BUNGALOW_PRICE);
+      break;
+    case 'house':
+      adPrice.setAttribute('min', MIN_HOUSE_PRICE);
+      adPrice.setAttribute('placeholder', MIN_HOUSE_PRICE);
+      break;
+    case 'palace':
+      adPrice.setAttribute('min', MIN_PALACE_PRICE);
+      adPrice.setAttribute('placeholder', MIN_PALACE_PRICE);
+      break;
+    case 'hotel':
+      adPrice.setAttribute('min', MIN_HOTEL_PRICE);
+      adPrice.setAttribute('placeholder', MIN_HOTEL_PRICE);
+      break;
+  }
+});
+
 adGuestNumber.querySelector('option[value="1"]').setAttribute('selected', 'selected');
 
 adRoomNumber.addEventListener('change', onSelectRoomChange);
 adGuestNumber.addEventListener('change', onSelectRoomChange);
+
+adCkeckin.addEventListener('change', getSameTimeOut);
+adCkeckout.addEventListener('change', getSameTimeIn);
 
 useInactivePageState();
 useActivePageState();
