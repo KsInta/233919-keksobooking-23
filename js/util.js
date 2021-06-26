@@ -16,6 +16,17 @@ const getRandomFloatNumber = (min, max, numeralCount) => {
   throw 'Одно из чисел меньше 0';
 };
 
+const getFloatNumber = (number, numeralCount) => {
+  let count = 1;
+  for (let counter = 0; counter < numeralCount; counter++) {
+    count *= 10;
+  }
+  if (number >= 0) {
+    return Math.floor(number * count) / count;
+  }
+  throw 'Число меньше 0';
+};
+
 const getRandomArray = (parentArray) => {
   const arrayCopy = parentArray.slice();
   const deletedElementsCount = getRandomInteger(0, arrayCopy.length);
@@ -59,6 +70,6 @@ const getAccommodationType = (type) => {
   }
 };
 
-export {getRandomInteger, getRandomFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase, getAccommodationType};
+export {getRandomInteger, getRandomFloatNumber, getFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase, getAccommodationType};
 
 //Этот модуль уберем когда настроим работу с сервером.
