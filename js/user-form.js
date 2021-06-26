@@ -12,6 +12,7 @@ const MIN_PALACE_PRICE = 10000;
 const adForm = document.querySelector('.ad-form');
 const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
 const adTitle = adForm.querySelector('#title');
+const adAddress = adForm.querySelector('#address');
 const adPrice = adForm.querySelector('#price');
 const adAccommodationType = adForm.querySelector('#type');
 const adCkeckin = adForm.querySelector('#timein');
@@ -129,4 +130,5 @@ adCkeckin.addEventListener('change', getSameTimeOut);
 adCkeckout.addEventListener('change', getSameTimeIn);
 
 useInactivePageState();
-useActivePageState();
+
+export {useActivePageState, adAddress};
