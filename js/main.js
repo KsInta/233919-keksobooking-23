@@ -4,11 +4,8 @@ import {createMarker} from './map.js';
 import './user-modal.js';
 import {setUserFormSubmit, sendUserForm} from './user-form.js';
 import {getData} from './server.js';
+import {showLoadFailMessage} from './user-modal.js';
 
-getData((similarAds) => {
-  similarAds.slice(0, SIMILAR_ADS_COUNT).forEach((item) => {
-    createMarker(item.author.avatar, item.offer, item.location);
-  });
-});
+getData('https://23.javascript.pages.academy/keksobooking/data', (data) => data.slice(0, SIMILAR_ADS_COUNT).forEach((item) => {createMarker(item.author.avatar, item.offer, item.location);}), showLoadFailMessage);
 
 setUserFormSubmit(sendUserForm);

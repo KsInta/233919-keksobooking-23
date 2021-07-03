@@ -24,8 +24,6 @@ const adCkeckout = adForm.querySelector('#timeout');
 const adRoomNumber = adForm.querySelector('#room_number');
 const adGuestNumber = adForm.querySelector('#capacity');
 const filterForm = document.querySelector('.map__filters');
-
-//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственных потомков.
 const filterFormFields = Array.from(filterForm.children);
 
 const useInactivePageState = () => {
