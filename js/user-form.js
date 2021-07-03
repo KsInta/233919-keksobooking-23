@@ -1,3 +1,7 @@
+import {setMainPinCoords, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG} from './map.js';
+import {openErrorModal, adSuccess, adError} from './user-modal.js';
+import {sendData} from './server.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE = 0;
@@ -20,13 +24,13 @@ const adCkeckout = adForm.querySelector('#timeout');
 const adRoomNumber = adForm.querySelector('#room_number');
 const adGuestNumber = adForm.querySelector('#capacity');
 const filterForm = document.querySelector('.map__filters');
-
-//Пройдет ли такой вариант критерий Д7? Так как в форме с оформлением объявления все элементы обернуты в fieldset я могу использовать querySelectorAll, а в фильтре нет и мне нужна коллекция всех непосредственных потомков.
 const filterFormFields = Array.from(filterForm.children);
 
 const useInactivePageState = () => {
   adForm.classList.add('ad-form--disabled');
   filterForm.classList.add('map__filters--disabled');
+  adSuccess.classList.add('hidden');
+  adError.classList.add('hidden');
   adFormFields.forEach((item) => {
     item.disabled = true;
   });
@@ -46,7 +50,26 @@ const useActivePageState = () => {
   });
 };
 
-//Сейчас у меня в проекте есть отдельные модули для карты, формы заполнения объявления и формы фильтрации. Фунции активации и деактивации страницы используют переменные которые должны по идее быть вынесены в эти разные модули. Мне надо так сделать и импортировать их в этот модуль где я буду вызывать useInactivePageState и useActivePageState?
+const resetUserForm = () => {
+  setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
+};
+
+const sendUserForm = () => {
+  adForm.reset();
+  setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => openErrorModal(),
+      new FormData(evt.target),
+    );
+  });
+};
 
 const getSameTimeIn = () => {
   adCkeckin.value = adCkeckout.value;
@@ -69,6 +92,10 @@ const onSelectRoomChange = () => {
 
   adGuestNumber.reportValidity();
 };
+
+adForm.addEventListener('reset', () => {
+  setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
+});
 
 adTitle.addEventListener('input', () => {
   const valueLength = adTitle.value.length;
@@ -131,4 +158,4 @@ adCkeckout.addEventListener('change', getSameTimeIn);
 
 useInactivePageState();
 
-export {useActivePageState, adAddress};
+export {useActivePageState, adAddress, adForm, setUserFormSubmit, sendUserForm, resetUserForm, adSuccess, adError};

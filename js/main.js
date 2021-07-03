@@ -1,5 +1,11 @@
+import {SIMILAR_ADS_COUNT} from './data.js';
 import './popup.js';
-import './user-form.js';
-import './map.js';
+import {createMarker} from './map.js';
+import './user-modal.js';
+import {setUserFormSubmit, sendUserForm} from './user-form.js';
+import {getData} from './server.js';
+import {showLoadFailMessage} from './user-modal.js';
 
-//Точка входа. Здесь в будущем подключим user-form.js, map.js, popup.js и наверно filter.js. Data.js под вопросом (filter.js тоже не уверен пока). Server.js как зависимость будет подключаться в другие модули.
+getData('https://23.javascript.pages.academy/keksobooking/data', (data) => data.slice(0, SIMILAR_ADS_COUNT).forEach((item) => {createMarker(item.author.avatar, item.offer, item.location);}), showLoadFailMessage);
+
+setUserFormSubmit(sendUserForm);
