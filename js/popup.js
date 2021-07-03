@@ -1,11 +1,9 @@
-import {createAds, GUESTS, ROOMS} from './data.js';
+import {GUESTS, ROOMS} from './data.js';
 import {getRussianCase, getRussianGenitiveCase, getAccommodationType} from './util.js';
 
 const map = document.querySelector('.map');
 const mapCanvas = map.querySelector('#map-canvas');
 const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const similarAds = createAds();
 
 const createCustomPopup = (avatar, offer) => {
   const adElement = adCardTemplate.cloneNode(true);
@@ -41,4 +39,4 @@ const createCustomPopup = (avatar, offer) => {
   return adElement;
 };
 
-export {mapCanvas, similarAds, createCustomPopup};
+export {mapCanvas, createCustomPopup};

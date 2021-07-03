@@ -70,6 +70,16 @@ const getAccommodationType = (type) => {
   }
 };
 
-export {getRandomInteger, getRandomFloatNumber, getFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase, getAccommodationType};
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+const isEnterEvent = (evt) => evt.key === 'Enter';
+
+const showAlert = (modal) => {
+  const alertContainer = modal.cloneNode(true);
+
+  document.body.append(alertContainer);
+};
+
+export {getRandomInteger, getRandomFloatNumber, getFloatNumber, getRandomArray, getRandomArrayElement, getRussianCase, getRussianGenitiveCase, getAccommodationType, isEscEvent, isEnterEvent, showAlert};
 
 //Этот модуль уберем когда настроим работу с сервером.

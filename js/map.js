@@ -1,6 +1,6 @@
 import {useActivePageState, adAddress} from './user-form.js';
 import {getFloatNumber} from './util.js';
-import {similarAds, createCustomPopup} from './popup.js';
+import {createCustomPopup} from './popup.js';
 
 const TOKYO_CENTER_LAT = 35.68950;
 const TOKYO_CENTER_LNG = 139.69171;
@@ -69,14 +69,23 @@ const createMarker = (avatar, offer, point) => {
     );
 };
 
-adAddress.setAttribute('placeholder', `${getFloatNumber(TOKYO_CENTER_LAT, 5)}, ${getFloatNumber(TOKYO_CENTER_LNG, 5)}`);
+const setMainPinCoords = (lat, lng) => {
+  mainPinMarker
+    .setLatLng({
+      lat: lat,
+      lng: lng,
+    });
+  adAddress.setAttribute('value', `${getFloatNumber(lat, 5)}, ${getFloatNumber(lng, 5)}`);
+  adAddress.setAttribute('placeholder', `${getFloatNumber(lat, 5)}, ${getFloatNumber(lng, 5)}`);
+};
+
+setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
 
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
+  adAddress.setAttribute('value', `${getFloatNumber(evt.target.getLatLng().lat, 5)}, ${getFloatNumber(evt.target.getLatLng().lng, 5)}`);
   adAddress.setAttribute('placeholder', `${getFloatNumber(evt.target.getLatLng().lat, 5)}, ${getFloatNumber(evt.target.getLatLng().lng, 5)}`);
 });
 
-similarAds.forEach((item) => {
-  createMarker(item.avatar, item.offer, item. location);
-});
+export {setMainPinCoords, createMarker, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG};
