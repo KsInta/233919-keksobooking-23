@@ -1,5 +1,8 @@
 import {openSuccessModal} from './user-modal.js';
 
+const getDataUrl = 'https://23.javascript.pages.academy/keksobooking/data';
+const sendDataUrl = 'https://23.javascript.pages.academy/keksobooking';
+
 const getData = async (url, onSuccess, onError) => {
   const ads = await fetch(url)
     .then((response) => {
@@ -17,7 +20,7 @@ const getData = async (url, onSuccess, onError) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://23.javascript.pages.academy/keksobooking',
+    sendDataUrl,
     {
       method: 'POST',
       body,
@@ -36,4 +39,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, sendData, getDataUrl};

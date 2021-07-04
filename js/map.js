@@ -88,4 +88,4 @@ mainPinMarker.on('moveend', (evt) => {
   adAddress.setAttribute('placeholder', `${getFloatNumber(evt.target.getLatLng().lat, 5)}, ${getFloatNumber(evt.target.getLatLng().lng, 5)}`);
 });
 
-export {setMainPinCoords, createMarker, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG};
+export {setMainPinCoords, createMarker, markerGroup, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG};
