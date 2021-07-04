@@ -1,6 +1,7 @@
 import {setMainPinCoords, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG} from './map.js';
 import {openErrorModal, adSuccess, adError} from './user-modal.js';
 import {sendData} from './server.js';
+import {PARSE_INT_SCALE} from './data.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -50,10 +51,6 @@ const useActivePageState = () => {
   });
 };
 
-const resetUserForm = () => {
-  setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
-};
-
 const sendUserForm = () => {
   adForm.reset();
   setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
@@ -82,7 +79,7 @@ const getSameTimeOut = () => {
 const onSelectRoomChange = () => {
   const roomsValue = adRoomNumber.value;
   const guestValue = adGuestNumber.value;
-  if (parseInt(roomsValue, 10) === MAX_ROOM_NUMBER && parseInt(guestValue, 10) !== 0) {
+  if (parseInt(roomsValue, PARSE_INT_SCALE) === MAX_ROOM_NUMBER && parseInt(guestValue, PARSE_INT_SCALE) !== 0) {
     adGuestNumber.setCustomValidity('Такое здание не для приема гостей');
   } else if (guestValue > roomsValue) {
     adGuestNumber.setCustomValidity('Количество гостей не может превышать количество комнат');
@@ -158,4 +155,4 @@ adCkeckout.addEventListener('change', getSameTimeIn);
 
 useInactivePageState();
 
-export {useActivePageState, adAddress, adForm, setUserFormSubmit, sendUserForm, resetUserForm, adSuccess, adError};
+export {useActivePageState, adAddress, adForm, setUserFormSubmit, sendUserForm, adSuccess, adError};

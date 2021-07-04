@@ -1,5 +1,5 @@
 import {createMarker, markerGroup} from './map.js';
-import {SIMILAR_ADS_COUNT} from './data.js';
+import {SIMILAR_ADS_COUNT, PARSE_INT_SCALE} from './data.js';
 
 const FILTER_TYPE_ANY = 'any';
 const PriceKeys = {
@@ -25,9 +25,9 @@ const getFeatures = (elem) => {
 
 const getHousingType = (item) => accommodationTypeSelect.value === FILTER_TYPE_ANY ? true : accommodationTypeSelect.value === item.offer.type;
 
-const getRoomsNumber = (item) => accommodationRoomsSelect.value === FILTER_TYPE_ANY ? true : parseInt(accommodationRoomsSelect.value, 10) === item.offer.rooms;
+const getRoomsNumber = (item) => accommodationRoomsSelect.value === FILTER_TYPE_ANY ? true : parseInt(accommodationRoomsSelect.value, PARSE_INT_SCALE) === item.offer.rooms;
 
-const getGuestsNumber = (item) => accommodationGuestsSelect.value === FILTER_TYPE_ANY ? true : parseInt(accommodationGuestsSelect.value, 10) === item.offer.guests;
+const getGuestsNumber = (item) => accommodationGuestsSelect.value === FILTER_TYPE_ANY ? true : parseInt(accommodationGuestsSelect.value, PARSE_INT_SCALE) === item.offer.guests;
 
 const getHousingPrice = (item) => {
   switch (accommodationPriceSelect.value) {
@@ -51,7 +51,6 @@ const setFilterFormChange = (cb) => {
 const renderSimilarList = (data) => {
   markerGroup.clearLayers();
   data
-    .slice()
     .filter((item) => getHousingType(item) && getHousingPrice(item) && getRoomsNumber(item) && getGuestsNumber(item) && getFeatures(item))
     .slice(0, SIMILAR_ADS_COUNT)
     .forEach((item) => {

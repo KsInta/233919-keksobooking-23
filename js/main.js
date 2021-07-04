@@ -4,13 +4,13 @@ import './popup.js';
 import './user-modal.js';
 import {setUserFormSubmit, sendUserForm} from './user-form.js';
 import {setFilterFormChange, renderSimilarList} from './filter-form.js';
-import {getData} from './server.js';
+import {getData, getDataUrl} from './server.js';
 import {showLoadFailMessage} from './user-modal.js';
 
 const RERENDER_DELAY = 500;
 
 getData(
-  'https://23.javascript.pages.academy/keksobooking/data',
+  getDataUrl,
   (data) => {
     renderSimilarList(data);
     setFilterFormChange(debounce(
