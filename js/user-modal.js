@@ -32,48 +32,58 @@ const adSuccess = document.querySelector('.success');
 const adError = document.querySelector('.error');
 const adErrorClose = adError.querySelector('.error__button');
 
-const onSuccessPopupEvents = (evt) => {
+const onSuccessPopupKeydownEsc = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     adSuccess.classList.add('hidden');
-    document.removeEventListener('keydown', onSuccessPopupEvents);
-  }
-  if (evt.currentTarget === document && evt.type === 'click') {
-    evt.preventDefault();
-    adSuccess.classList.add('hidden');
-    document.removeEventListener('click', onSuccessPopupEvents);
+    document.removeEventListener('keydown', onSuccessPopupKeydownEsc);
+    document.removeEventListener('click', onSuccessPopupClick);
   }
 };
 
-const onErrorPopupEvents = (evt) => {
+const onSuccessPopupClick = (evt) => {
+  if (evt.currentTarget === document && evt.type === 'click') {
+    evt.preventDefault();
+    adSuccess.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessPopupKeydownEsc);
+    document.removeEventListener('click', onSuccessPopupClick);
+  }
+};
+
+const onErrorPopupKeydownEsc = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     adError.classList.add('hidden');
-    document.removeEventListener('keydown', onErrorPopupEvents);
+    document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+    document.removeEventListener('click', onErrorPopupClick);
   }
+};
+
+const onErrorPopupClick = (evt) => {
   if (evt.currentTarget === document && evt.type === 'click') {
     evt.preventDefault();
     adError.classList.add('hidden');
-    document.removeEventListener('click', onErrorPopupEvents);
+    document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+    document.removeEventListener('click', onErrorPopupClick);
   }
 };
 
 const openSuccessModal = () => {
   adSuccess.classList.remove('hidden');
-  document.addEventListener('keydown', onSuccessPopupEvents);
-  document.addEventListener('click', onSuccessPopupEvents);
+  document.addEventListener('keydown', onSuccessPopupKeydownEsc);
+  document.addEventListener('click', onSuccessPopupClick);
 };
 
 const openErrorModal = () => {
   adError.classList.remove('hidden');
-  document.addEventListener('keydown', onErrorPopupEvents);
-  document.addEventListener('click', onErrorPopupEvents);
+  document.addEventListener('keydown', onErrorPopupKeydownEsc);
+  document.addEventListener('click', onErrorPopupClick);
 };
 
 const closeErrorModal = () => {
   adError.classList.add('hidden');
-  document.removeEventListener('keydown', onErrorPopupEvents);
-  document.removeEventListener('click', onErrorPopupEvents);
+  document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+  document.removeEventListener('click', onErrorPopupClick);
 };
 
 adErrorClose.addEventListener('click', () => {
