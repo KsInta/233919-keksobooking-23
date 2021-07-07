@@ -1,4 +1,4 @@
-import {showAlert, isEscEvent, isEnterEvent} from './util.js';
+import {showAlert, isEscEvent} from './util.js';
 import {mapCanvas} from './popup.js';
 
 showAlert(document.querySelector('#error').content.querySelector('.error'));
@@ -32,50 +32,62 @@ const adSuccess = document.querySelector('.success');
 const adError = document.querySelector('.error');
 const adErrorClose = adError.querySelector('.error__button');
 
-const onSuccessPopupEscKeydown = (evt) => {
-  if (isEscEvent(evt) || evt.currentTarget === document) {
+const onSuccessPopupKeydownEsc = (evt) => {
+  if (isEscEvent(evt)) {
     evt.preventDefault();
     adSuccess.classList.add('hidden');
-    document.removeEventListener('keydown', onSuccessPopupEscKeydown);
-    document.removeEventListener('click', onSuccessPopupEscKeydown);
+    document.removeEventListener('keydown', onSuccessPopupKeydownEsc);
+    document.removeEventListener('click', onSuccessPopupClick);
   }
 };
 
-const onErrorPopupEscKeydown = (evt) => {
-  if (isEscEvent(evt) || evt.currentTarget === document) {
+const onSuccessPopupClick = (evt) => {
+  if (evt.currentTarget === document && evt.type === 'click') {
+    evt.preventDefault();
+    adSuccess.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessPopupKeydownEsc);
+    document.removeEventListener('click', onSuccessPopupClick);
+  }
+};
+
+const onErrorPopupKeydownEsc = (evt) => {
+  if (isEscEvent(evt)) {
     evt.preventDefault();
     adError.classList.add('hidden');
-    document.removeEventListener('keydown', onErrorPopupEscKeydown);
-    document.removeEventListener('click', onErrorPopupEscKeydown);
+    document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+    document.removeEventListener('click', onErrorPopupClick);
+  }
+};
+
+const onErrorPopupClick = (evt) => {
+  if (evt.currentTarget === document && evt.type === 'click') {
+    evt.preventDefault();
+    adError.classList.add('hidden');
+    document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+    document.removeEventListener('click', onErrorPopupClick);
   }
 };
 
 const openSuccessModal = () => {
   adSuccess.classList.remove('hidden');
-  document.addEventListener('keydown', onSuccessPopupEscKeydown);
-  document.addEventListener('click', onSuccessPopupEscKeydown);
+  document.addEventListener('keydown', onSuccessPopupKeydownEsc);
+  document.addEventListener('click', onSuccessPopupClick);
 };
 
 const openErrorModal = () => {
   adError.classList.remove('hidden');
-  document.addEventListener('keydown', onErrorPopupEscKeydown);
-  document.addEventListener('click', onErrorPopupEscKeydown);
+  document.addEventListener('keydown', onErrorPopupKeydownEsc);
+  document.addEventListener('click', onErrorPopupClick);
 };
 
 const closeErrorModal = () => {
   adError.classList.add('hidden');
-  document.removeEventListener('keydown', onErrorPopupEscKeydown);
-  document.removeEventListener('click', onErrorPopupEscKeydown);
+  document.removeEventListener('keydown', onErrorPopupKeydownEsc);
+  document.removeEventListener('click', onErrorPopupClick);
 };
 
 adErrorClose.addEventListener('click', () => {
   closeErrorModal();
-});
-
-adErrorClose.addEventListener('keydown', (evt) => {
-  if (isEnterEvent(evt)) {
-    closeErrorModal();
-  }
 });
 
 export {openSuccessModal, openErrorModal, showLoadFailMessage, adSuccess, adError};

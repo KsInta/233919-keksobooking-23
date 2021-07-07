@@ -6,6 +6,7 @@ import {setUserFormSubmit, sendUserForm} from './user-form.js';
 import {setFilterFormChange, renderSimilarList} from './filter-form.js';
 import {getData, getDataUrl} from './server.js';
 import {showLoadFailMessage} from './user-modal.js';
+import './avatar.js';
 
 const RERENDER_DELAY = 500;
 

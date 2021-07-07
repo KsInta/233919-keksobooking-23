@@ -1,6 +1,7 @@
 import {setMainPinCoords, TOKYO_CENTER_LAT, TOKYO_CENTER_LNG} from './map.js';
 import {openErrorModal, adSuccess, adError} from './user-modal.js';
-import {sendData} from './server.js';
+import {sendData, getData, getDataUrl} from './server.js';
+import {renderSimilarList} from './filter-form.js';
 import {PARSE_INT_SCALE} from './data.js';
 
 const MIN_TITLE_LENGTH = 30;
@@ -53,7 +54,13 @@ const useActivePageState = () => {
 
 const sendUserForm = () => {
   adForm.reset();
+  filterForm.reset();
   setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
+  getData(
+    getDataUrl,
+    (data) => {
+      renderSimilarList(data);
+    });
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -91,7 +98,13 @@ const onSelectRoomChange = () => {
 };
 
 adForm.addEventListener('reset', () => {
+  filterForm.reset();
   setMainPinCoords(TOKYO_CENTER_LAT, TOKYO_CENTER_LNG);
+  getData(
+    getDataUrl,
+    (data) => {
+      renderSimilarList(data);
+    });
 });
 
 adTitle.addEventListener('input', () => {

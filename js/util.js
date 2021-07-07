@@ -43,12 +43,10 @@ const getAccommodationType = (type) => {
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
-const isEnterEvent = (evt) => evt.key === 'Enter';
-
 const showAlert = (modal) => {
   const alertContainer = modal.cloneNode(true);
 
   document.body.append(alertContainer);
 };
 
-export {getFloatNumber, getRussianCase, getRussianGenitiveCase, getAccommodationType, isEscEvent, isEnterEvent, showAlert};
+export {getFloatNumber, getRussianCase, getRussianGenitiveCase, getAccommodationType, isEscEvent, showAlert};
