@@ -1,7 +1,7 @@
 import {openSuccessModal} from './user-modal.js';
 
 const getDataUrl = 'https://23.javascript.pages.academy/keksobooking/data';
-const sendDataUrl = 'https://23.javascript.pages.academy/keksobooking';
+const sendDataUrl = 'https://23.javascript.pages.academy/keksobookin';
 
 const getData = async (url, onSuccess, onError) => {
   const ads = await fetch(url)

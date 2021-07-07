@@ -4,6 +4,7 @@ import {createCustomPopup} from './popup.js';
 
 const TOKYO_CENTER_LAT = 35.68950;
 const TOKYO_CENTER_LNG = 139.69171;
+const MAP_SCALE = 12;
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -12,7 +13,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: TOKYO_CENTER_LAT,
     lng: TOKYO_CENTER_LNG,
-  }, 12);
+  }, MAP_SCALE);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

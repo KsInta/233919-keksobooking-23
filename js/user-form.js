@@ -9,11 +9,11 @@ const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
 const MAX_ROOM_NUMBER = 100;
-const MIN_BUNGALOW_PRICE = 0;
-const MIN_FLAT_PRICE = 1000;
-const MIN_HOTEL_PRICE = 3000;
-const MIN_HOUSE_PRICE = 5000;
-const MIN_PALACE_PRICE = 10000;
+const MIN_BUNGALOW_PRICE = '0';
+const MIN_FLAT_PRICE = '1000';
+const MIN_HOTEL_PRICE = '3000';
+const MIN_HOUSE_PRICE = '5000';
+const MIN_PALACE_PRICE = '10000';
 
 const adForm = document.querySelector('.ad-form');
 const adFormFields = Array.from(adForm.querySelectorAll('fieldset'));
